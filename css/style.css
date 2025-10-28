@@ -18,13 +18,11 @@
   --text: var(--white);
   --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background: var(--black);
   color: var(--text);
@@ -32,7 +30,6 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-
 /* === Параллакс-фон по бокам === */
 .parallax-left,
 .parallax-right {
@@ -43,19 +40,16 @@ body {
   z-index: -1;
   pointer-events: none;
 }
-
 .parallax-left {
   left: 0;
   background: radial-gradient(circle at center, var(--violet-2) 0%, transparent 70%);
   opacity: 0.12;
 }
-
 .parallax-right {
   right: 0;
   background: radial-gradient(circle at center, var(--green-2) 0%, transparent 70%);
   opacity: 0.12;
 }
-
 /* === Контейнер приложения === */
 .app-container {
   max-width: 1400px;
@@ -64,7 +58,6 @@ body {
   position: relative;
   z-index: 10;
 }
-
 /* === Навигация === */
 .main-nav {
   display: flex;
@@ -74,7 +67,6 @@ body {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--gray);
 }
-
 .nav-btn {
   background: none;
   border: none;
@@ -87,41 +79,33 @@ body {
   border-radius: 6px;
   transition: all 0.3s var(--transition);
 }
-
 .nav-btn:hover {
   color: var(--white);
 }
-
 .nav-btn.active {
   color: var(--white);
   background: rgba(255, 255, 255, 0.05);
 }
-
 /* === Страницы === */
 .pages {
   position: relative;
 }
-
 .page {
   display: none;
   animation: fadeIn 0.6s var(--transition);
 }
-
 .page.active {
   display: block;
 }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 /* === Общие стили заголовков === */
 h1, h2 {
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
-
 h1 {
   font-size: clamp(2.5rem, 6vw, 4rem);
   background: linear-gradient(90deg, var(--violet-1), var(--green-1));
@@ -129,12 +113,10 @@ h1 {
   background-clip: text;
   color: transparent;
 }
-
 h2 {
   font-size: 2rem;
   color: var(--white);
 }
-
 /* === Главная: превью работ === */
 .preview-grid {
   display: grid;
@@ -142,7 +124,6 @@ h2 {
   gap: 2rem;
   margin-top: 2rem;
 }
-
 .preview-item {
   position: relative;
   border-radius: 12px;
@@ -150,11 +131,9 @@ h2 {
   cursor: pointer;
   transition: transform 0.4s var(--transition);
 }
-
 .preview-item:hover {
   transform: scale(1.02);
 }
-
 .preview-item img {
   width: 100%;
   height: auto;
@@ -162,7 +141,6 @@ h2 {
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
-
 .preview-item span {
   position: absolute;
   bottom: 1rem;
@@ -172,7 +150,6 @@ h2 {
   border-radius: 4px;
   font-size: 0.9rem;
 }
-
 /* === Обо мне === */
 .about-content {
   display: flex;
@@ -180,7 +157,6 @@ h2 {
   align-items: flex-start;
   margin-top: 2rem;
 }
-
 .avatar {
   width: 200px;
   height: 200px;
@@ -188,35 +164,29 @@ h2 {
   border-radius: 12px;
   border: 1px solid var(--gray);
 }
-
 .bio h2 {
   margin-bottom: 1rem;
   color: var(--white);
 }
-
 .bio p {
   margin-bottom: 1.2rem;
   line-height: 1.7;
   color: var(--silver);
 }
-
 .social-links {
   display: flex;
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
-
 .social-links a {
   color: var(--green-2);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s;
 }
-
 .social-links a:hover {
   color: var(--violet-2);
 }
-
 /* === Адаптивность === */
 @media (max-width: 768px) {
   .parallax-left, .parallax-right {
@@ -235,7 +205,6 @@ h2 {
     justify-content: center;
   }
 }
-
 /* === 3D Glitch Carousel === */
 .glitch-carousel {
   width: 100%;
@@ -244,7 +213,6 @@ h2 {
   margin-top: 2rem;
   perspective: 1200px;
 }
-
 .wrapper {
   width: 100%;
   height: 100%;
@@ -254,7 +222,6 @@ h2 {
   justify-content: center;
   overflow: visible;
 }
-
 .inner {
   --w: 220px;
   --h: 300px;
@@ -269,16 +236,13 @@ h2 {
   animation: rotating 24s linear infinite;
   transition: transform 0.5s ease;
 }
-
 @keyframes rotating {
   from { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0); }
   to   { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn); }
 }
-
 .inner.paused {
   animation-play-state: paused;
 }
-
 .card {
   position: absolute;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -290,7 +254,6 @@ h2 {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
-
 .card:hover,
 .card.active {
   transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ)) scale(1.15) !important;
@@ -298,14 +261,12 @@ h2 {
   z-index: 10;
   filter: brightness(1.2);
 }
-
 .card .img {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
 }
-
 /* === Модальное окно === */
 .modal {
   position: fixed;
@@ -322,12 +283,10 @@ h2 {
   visibility: hidden;
   transition: opacity 0.4s, visibility 0.4s;
 }
-
 .modal.show {
   opacity: 1;
   visibility: visible;
 }
-
 .modal-content {
   position: relative;
   max-width: 90%;
@@ -340,7 +299,6 @@ h2 {
   border-radius: 16px;
   color: white;
 }
-
 .modal-close {
   position: absolute;
   top: 1rem;
@@ -352,11 +310,9 @@ h2 {
   cursor: pointer;
   z-index: 1001;
 }
-
 .modal-close:hover {
   color: white;
 }
-
 #modal-image {
   max-width: 100%;
   max-height: 60vh;
@@ -364,11 +320,9 @@ h2 {
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }
-
 .modal-actions {
   margin-top: 1.5rem;
 }
-
 .btn {
   background: var(--green-2);
   color: black;
@@ -379,12 +333,10 @@ h2 {
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .btn:hover {
   background: var(--violet-2);
   color: white;
 }
-
 /* Адаптивность карусели */
 @media (max-width: 768px) {
   .inner {
