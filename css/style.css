@@ -1,13 +1,25 @@
-/* === Современный, минималистичный, с цифровой глубиной === */
+/* === Цвета === */
 :root {
-  --bg: #000000;
-  --text: #ffffff;
-  --text-low: #a0a0a0;
-  --accent: #ffffff;
-  --glitch-pink: #ff00c8;
-  --glitch-cyan: #00f3ff;
-  --border: rgba(255, 255, 255, 0.08);
-  --transition: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Фон */
+  --black: #000000;
+  --gray: #808080;
+  --silver: #C0C0C0;
+  --white: #FFFFFF;
+
+  /* Зелёная палитра (правая сторона) */
+  --green-1: #00FF00;
+  --green-2: #00FA9A;
+  --green-3: #00FF7F;
+  --green-4: #00ff95;
+
+  /* Фиолетовая палитра (левая сторона) */
+  --violet-1: #FF00FF;
+  --violet-2: #8A2BE2;
+  --violet-3: #6A5ACD;
+
+  /* Общие */
+  --text: var(--white);
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 * {
@@ -17,177 +29,235 @@
 }
 
 body {
-  background: var(--bg);
+  background: var(--black);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
   overflow-x: hidden;
+  position: relative;
 }
 
-.gallery {
-  max-width: 1600px;
+/* === Параллакс-фон по бокам === */
+.parallax-left,
+.parallax-right {
+  position: fixed;
+  top: 0;
+  width: 30vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.parallax-left {
+  left: 0;
+  background: radial-gradient(circle at center, var(--violet-2) 0%, transparent 70%);
+  opacity: 0.12;
+}
+
+.parallax-right {
+  right: 0;
+  background: radial-gradient(circle at center, var(--green-2) 0%, transparent 70%);
+  opacity: 0.12;
+}
+
+/* === Контейнер приложения === */
+.app-container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 6rem 2rem 8rem;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
 }
 
-.gallery-header {
-  text-align: center;
-  margin-bottom: 5rem;
+/* === Навигация === */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gray);
 }
 
-.gallery-header h1 {
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--silver);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s var(--transition);
+}
+
+.nav-btn:hover {
+  color: var(--white);
+}
+
+.nav-btn.active {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* === Страницы === */
+.pages {
+  position: relative;
+}
+
+.page {
+  display: none;
+  animation: fadeIn 0.6s var(--transition);
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Общие стили заголовков === */
+h1, h2 {
   font-weight: 700;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-  background: linear-gradient(90deg, var(--accent), var(--glitch-cyan));
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  background: linear-gradient(90deg, var(--violet-1), var(--green-1));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  position: relative;
 }
 
-.gallery-header p {
-  color: var(--text-low);
-  font-size: 1.125rem;
-  max-width: 600px;
-  margin: 0 auto;
+h2 {
+  font-size: 2rem;
+  color: var(--white);
 }
 
-/* === Сетка фрагментов === */
-.fragments-grid {
+/* === Главная: превью работ === */
+.preview-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.fragment {
+.preview-item {
   position: relative;
-  aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  background: #0a0a0a;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  transition: transform 0.6s var(--transition), box-shadow 0.6s var(--transition);
+  transition: transform 0.4s var(--transition);
 }
 
-.fragment:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+.preview-item:hover {
+  transform: scale(1.02);
 }
 
-/* === Скрытый медиа-слой === */
-.fragment::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.preview-item img {
   width: 100%;
-  height: 100%;
-  background: var(--bg);
-  z-index: 2;
-  transition: opacity 0.8s var(--transition);
-}
-
-.fragment:hover::before {
-  opacity: 0;
-}
-
-/* === Анимация разлома (глитч при наведении) === */
-.fragment::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    linear-gradient(transparent 50%, rgba(0, 0, 0, 0.3) 50%),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 1px,
-      rgba(255, 255, 255, 0.03) 1px,
-      rgba(255, 255, 255, 0.03) 2px
-    );
-  z-index: 3;
-  opacity: 0;
-  pointer-events: none;
-  animation: digitalRupture 8s infinite paused;
-}
-
-.fragment:hover::after {
-  opacity: 1;
-  animation-play-state: running;
-}
-
-@keyframes digitalRupture {
-  0%, 100% { transform: translateX(0); opacity: 0.7; }
-  10% { transform: translateX(-2px); }
-  20% { transform: translateX(2px); }
-  30% { transform: translateX(-1px); }
-  40% { transform: translateX(1px); }
-  50% { transform: translateX(0); opacity: 0.4; }
-  60% { transform: translateX(-3px); }
-  70% { transform: translateX(3px); opacity: 0.8; }
-  80% { transform: translateX(0); }
-  90% { opacity: 0.5; }
-}
-
-/* === Контент поверх (ID и статус) === */
-.fragment-content {
-  position: absolute;
-  bottom: 1.25rem;
-  left: 1.25rem;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.fragment-id {
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: var(--accent);
-}
-
-.fragment-status {
-  font-size: 0.875rem;
-  color: var(--text-low);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* === Медиа (R34-анимация) === */
-.fragment-media {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s ease;
 }
 
-.fragment:hover .fragment-media {
-  opacity: 1;
+.preview-item span {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* === Галереи === */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: opacity 0.3s;
+}
+
+.gallery-item img:hover {
+  opacity: 0.9;
+}
+
+/* === Обо мне === */
+.about-content {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--gray);
+}
+
+.bio h2 {
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+
+.bio p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+  color: var(--silver);
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  color: var(--green-2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: var(--violet-2);
 }
 
 /* === Адаптивность === */
 @media (max-width: 768px) {
-  .gallery {
-    padding: 4rem 1.5rem 6rem;
+  .parallax-left, .parallax-right {
+    display: none;
   }
 
-  .fragments-grid {
-    gap: 1.75rem;
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
-  .gallery-header h1 {
-    font-size: clamp(2rem, 8vw, 3rem);
+  .avatar {
+    width: 160px;
+    height: 160px;
+  }
+
+  .social-links {
+    justify-content: center;
   }
 }
