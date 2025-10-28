@@ -1,22 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const galleries = {
-    vhs: [
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #01", desc: "Analog decay with hidden signal." },
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #02", desc: "Magnetic distortion, encrypted layer." },
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #03", desc: "Time-stretched reality glitch." },
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #04", desc: "Signal lost in tape warp." },
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #05", desc: "Ghost frame from parallel broadcast." },
-      { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #06", desc: "Digital rupture in analog shell." }
-    ],
-    matrix: [
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #03", desc: "Encrypted motion in digital void." },
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #04", desc: "Signal from the other side." },
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #05", desc: "Glitch as poetic artifact." },
-      { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #06", desc: "Forbidden animation in noise." }
-    ]
-  };
+  vhs: [
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #01", desc: "Analog decay with hidden signal." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #02", desc: "Magnetic distortion, encrypted layer." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #03", desc: "Time-stretched reality glitch." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #04", desc: "Signal lost in tape warp." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #05", desc: "Ghost frame from parallel broadcast." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #06", desc: "Digital rupture in analog shell." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #07", desc: "Tape hiss artifact." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #08", desc: "Vertical hold failure." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #09", desc: "Chroma bleed signal." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #10", desc: "Final frame corruption." }
+  ],
+  matrix: [
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #03", desc: "Encrypted motion in digital void." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #04", desc: "Signal from the other side." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #05", desc: "Glitch as poetic artifact." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #06", desc: "Forbidden animation in noise." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #07", desc: "Data stream collapse." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #08", desc: "Recursive reality loop." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #09", desc: "Neural net overflow." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #10", desc: "Terminal signal received." }
+  ]
+};
 
   function initCarousel(containerId, items) {
     const container = document.getElementById(containerId);
@@ -94,3 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
