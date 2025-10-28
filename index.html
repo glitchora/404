@@ -43,23 +43,42 @@
       </section>
 
       <!-- Галерея: VHS Glitch -->
-      <section id="vhs" class="page">
-        <h2>VHS Glitch Archive</h2>
-        <div class="gallery-grid" id="gallery-vhs">
-          <!-- Заполняется через JS или вручную -->
-          <div class="gallery-item"><img src="https://glichorahost.pages.dev/avaanime.webp" alt="VHS #01"></div>
-          <div class="gallery-item"><img src="https://glichorahost.pages.dev/avamanga.webp" alt="VHS #02"></div>
-        </div>
-      </section>
+<section id="vhs" class="page">
+  <h2>VHS Glitch Archive</h2>
+  <div class="glitch-carousel" id="carousel-vhs">
+    <div class="wrapper">
+      <div class="inner" data-quantity="6">
+        <!-- Картинки будут добавлены через JS -->
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Галерея: Digital Rupture -->
-      <section id="matrix" class="page">
-        <h2>Digital Rupture</h2>
-        <div class="gallery-grid" id="gallery-matrix">
-          <div class="gallery-item"><img src="https://glichorahost.pages.dev/angelglitch1.webp" alt="Rupture #01"></div>
-          <div class="gallery-item"><img src="https://glichorahost.pages.dev/angelglitch2.webp" alt="Rupture #02"></div>
-        </div>
-      </section>
+<!-- Галерея: Digital Rupture -->
+<section id="matrix" class="page">
+  <h2>Digital Rupture</h2>
+  <div class="glitch-carousel" id="carousel-matrix">
+    <div class="wrapper">
+      <div class="inner" data-quantity="6">
+        <!-- Картинки будут добавлены через JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="modal-close">&times;</button>
+    <img id="modal-image" src="" alt="">
+    <h3 id="modal-title"></h3>
+    <p id="modal-description"></p>
+    <div class="modal-actions">
+      <button class="btn">Close</button>
+      <!-- Можно добавить другие кнопки -->
+    </div>
+  </div>
+</div>
 
       <!-- Обо мне -->
       <section id="about" class="page">
