@@ -1,1 +1,140 @@
-/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GLITCH ARCHIVE // [ТВОЁ ИМЯ]</title>
+  <style>
+    :root {
+      --noise-opacity: 0.92;
+      --glitch-speed: 2s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      text-shadow: 0 0 5px #0f0;
+    }
+
+    .archive {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .entry {
+      position: relative;
+      border: 1px solid #0a0;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+
+    .preview {
+      width: 100%;
+      height: 100%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #080;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .hidden-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .noise-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+      opacity: var(--noise-opacity);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: noiseMove var(--glitch-speed) infinite steps(1);
+    }
+
+    @keyframes noiseMove {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-1px, 0); }
+      20% { transform: translate(1px, 0); }
+      30% { transform: translate(0, -1px); }
+      40% { transform: translate(0, 1px); }
+      50% { transform: translate(-1px, 1px); }
+      60% { transform: translate(1px, -1px); }
+      70% { transform: translate(1px, 1px); }
+      80% { transform: translate(-1px, -1px); }
+      90% { transform: translate(0, 0); }
+    }
+
+    .entry:hover .hidden-animation {
+      opacity: 1;
+    }
+
+    .entry:hover .noise-overlay {
+      opacity: 0.3;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #080;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GLITCH ARCHIVE // [ТВОЁ ИМЯ]</h1>
+    <p>Signal corrupted. Fragments recovered: ██ ██ ██</p>
+  </header>
+
+  <div class="archive">
+    <!-- Пример записи -->
+    <div class="entry">
+      <div class="preview">Fragment #001<br>Source: Unknown<br>Status: Partially Recovered</div>
+      <img class="hidden-animation" src="your-animation-001.gif" alt="hidden">
+      <div class="noise-overlay"></div>
+    </div>
+
+    <div class="entry">
+      <div class="preview">Fragment #002<br>Source: Matrix Rift<br>Status: Encrypted</div>
+      <img class="hidden-animation" src="your-animation-002.gif" alt="hidden">
+      <div class="noise-overlay"></div>
+    </div>
+
+    <!-- Добавляй сюда новые записи -->
+  </div>
+
+  <footer>
+    <p>Access granted. Do not distribute. Reality is unstable.</p>
+  </footer>
+</body>
+</html>
