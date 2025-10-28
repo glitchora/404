@@ -1,24 +1,24 @@
-// === Данные для галерей ===
+// === Данные галерей с твоими ссылками ===
 const galleries = {
   vhs: [
-    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #01", desc: "Analog decay with hidden signal." },
-    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #02", desc: "Magnetic distortion, encrypted layer." },
-    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #03", desc: "Time-stretched reality glitch." },
-    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #04", desc: "Signal lost in tape warp." },
-    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #05", desc: "Ghost frame from parallel broadcast." },
-    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #06", desc: "Digital rupture in analog shell." }
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #01", desc: "Analog decay with hidden signal." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #02", desc: "Magnetic distortion, encrypted layer." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #03", desc: "Time-stretched reality glitch." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #04", desc: "Signal lost in tape warp." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #05", desc: "Ghost frame from parallel broadcast." },
+    { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #06", desc: "Digital rupture in analog shell." }
   ],
   matrix: [
-    { src: "https://glichorahost.pages.dev/avaanime.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
-    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
-    { src: "https://glichorahost.pages.dev/avaanime.webp"", title: "Rupture #03", desc: "Encrypted motion in digital void." },
-    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #04", desc: "Signal from the other side." },
-    { src: "https://glichorahost.pages.dev/avaanime.webp"", title: "Rupture #05", desc: "Glitch as poetic artifact." },
-    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #06", desc: "Forbidden animation in noise." }
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #03", desc: "Encrypted motion in digital void." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #04", desc: "Signal from the other side." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #05", desc: "Glitch as poetic artifact." },
+    { src: "https://glichorahost.pages.dev/pashalka5.webp", title: "Rupture #06", desc: "Forbidden animation in noise." }
   ]
 };
 
-// === Инициализация каруселей ===
+// === Инициализация карусели ===
 function initCarousel(containerId, items) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -26,15 +26,13 @@ function initCarousel(containerId, items) {
   const inner = container.querySelector('.inner');
   const quantity = items.length;
   inner.style.setProperty('--quantity', quantity);
-  inner.setAttribute('data-quantity', quantity);
 
-  inner.innerHTML = ''; // очистка
+  inner.innerHTML = '';
 
   items.forEach((item, index) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.style.setProperty('--index', index);
-    card.style.setProperty('--color-card', '255, 255, 255'); // можно менять
 
     const imgDiv = document.createElement('div');
     imgDiv.className = 'img';
@@ -43,15 +41,18 @@ function initCarousel(containerId, items) {
     card.appendChild(imgDiv);
     inner.appendChild(card);
 
-    // Клик — открыть модалку
+    // Клик → модалка
     card.addEventListener('click', () => {
-      openModal(item);
+      document.getElementById('modal-image').src = item.src;
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-description').textContent = item.desc;
+      document.getElementById('modal').classList.add('show');
+      document.body.style.overflow = 'hidden';
     });
 
-    // Наведение — остановить и выделить
+    // Наведение → остановка + фокус
     card.addEventListener('mouseenter', () => {
       inner.classList.add('paused');
-      // Снять active у всех
       container.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
     });
@@ -63,60 +64,47 @@ function initCarousel(containerId, items) {
   });
 }
 
-// === Модальное окно ===
-const modal = document.getElementById('modal');
-const modalImage = document.getElementById('modal-image');
-const modalTitle = document.getElementById('modal-title');
-const modalDesc = document.getElementById('modal-description');
-const modalClose = document.querySelector('.modal-close');
-const modalBtns = document.querySelectorAll('.modal-actions .btn');
-
-function openModal(item) {
-  modalImage.src = item.src;
-  modalTitle.textContent = item.title;
-  modalDesc.textContent = item.desc;
-  modal.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
+// === Закрытие модалки ===
 function closeModal() {
-  modal.classList.remove('show');
+  document.getElementById('modal').classList.remove('show');
   document.body.style.overflow = '';
 }
 
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) closeModal();
+document.querySelector('.modal-close').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal')) closeModal();
 });
-
-modalBtns.forEach(btn => {
-  btn.addEventListener('click', closeModal);
-});
+document.querySelector('.modal-actions .btn').addEventListener('click', closeModal);
 
 // === Переключение вкладок ===
 document.querySelectorAll('.nav-btn').forEach(button => {
   button.addEventListener('click', () => {
-    const targetPage = button.getAttribute('data-page');
+    const target = button.dataset.page;
 
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
     button.classList.add('active');
-    document.getElementById(targetPage).classList.add('active');
+    document.getElementById(target).classList.add('active');
 
-    // Инициализировать карусель при первом открытии
-    if (targetPage === 'vhs' && !document.getElementById('carousel-vhs').hasAttribute('data-initialized')) {
+    // Инициализация галерей при первом открытии
+    if (target === 'vhs' && !containerHasData('carousel-vhs')) {
       initCarousel('carousel-vhs', galleries.vhs);
-      document.getElementById('carousel-vhs').setAttribute('data-initialized', 'true');
+      markContainerAsLoaded('carousel-vhs');
     }
-    if (targetPage === 'matrix' && !document.getElementById('carousel-matrix').hasAttribute('data-initialized')) {
+    if (target === 'matrix' && !containerHasData('carousel-matrix')) {
       initCarousel('carousel-matrix', galleries.matrix);
-      document.getElementById('carousel-matrix').setAttribute('data-initialized', 'true');
+      markContainerAsLoaded('carousel-matrix');
     }
   });
 });
 
-// === Инициализация главной страницы ===
-document.getElementById('home').classList.add('active');
-document.querySelector('.nav-btn[data-page="home"]').classList.add('active');
+function containerHasData(id) {
+  return document.getElementById(id).hasAttribute('data-loaded');
+}
 
+function markContainerAsLoaded(id) {
+  document.getElementById(id).setAttribute('data-loaded', 'true');
+}
+
+// Главная вкладка активна по умолчанию
