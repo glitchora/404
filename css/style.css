@@ -1,0 +1,193 @@
+/* === Современный, минималистичный, с цифровой глубиной === */
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --text-low: #a0a0a0;
+  --accent: #ffffff;
+  --glitch-pink: #ff00c8;
+  --glitch-cyan: #00f3ff;
+  --border: rgba(255, 255, 255, 0.08);
+  --transition: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.gallery {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 6rem 2rem 8rem;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.gallery-header h1 {
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--accent), var(--glitch-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.gallery-header p {
+  color: var(--text-low);
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* === Сетка фрагментов === */
+.fragments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.fragment {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #0a0a0a;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.6s var(--transition), box-shadow 0.6s var(--transition);
+}
+
+.fragment:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* === Скрытый медиа-слой === */
+.fragment::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: 2;
+  transition: opacity 0.8s var(--transition);
+}
+
+.fragment:hover::before {
+  opacity: 0;
+}
+
+/* === Анимация разлома (глитч при наведении) === */
+.fragment::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(transparent 50%, rgba(0, 0, 0, 0.3) 50%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.03) 1px,
+      rgba(255, 255, 255, 0.03) 2px
+    );
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  animation: digitalRupture 8s infinite paused;
+}
+
+.fragment:hover::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes digitalRupture {
+  0%, 100% { transform: translateX(0); opacity: 0.7; }
+  10% { transform: translateX(-2px); }
+  20% { transform: translateX(2px); }
+  30% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  50% { transform: translateX(0); opacity: 0.4; }
+  60% { transform: translateX(-3px); }
+  70% { transform: translateX(3px); opacity: 0.8; }
+  80% { transform: translateX(0); }
+  90% { opacity: 0.5; }
+}
+
+/* === Контент поверх (ID и статус) === */
+.fragment-content {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fragment-id {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--accent);
+}
+
+.fragment-status {
+  font-size: 0.875rem;
+  color: var(--text-low);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* === Медиа (R34-анимация) === */
+.fragment-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fragment:hover .fragment-media {
+  opacity: 1;
+}
+
+/* === Адаптивность === */
+@media (max-width: 768px) {
+  .gallery {
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  .fragments-grid {
+    gap: 1.75rem;
+  }
+
+  .gallery-header h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+}
