@@ -256,11 +256,11 @@ h2 {
 }
 
 .inner {
-  --w: 220px;
-  --h: 300px;
-  --translateZ: calc((var(--w) + var(--h)) * 0.3);
-  --rotateX: -10deg;
-  --perspective: 1200px;
+  --w: 200px;   /* немного уже, чтобы влезло 10 */
+  --h: 280px;   /* чуть ниже */
+  --translateZ: calc((var(--w) + var(--h)) * 0.6); /* ← УВЕЛИЧЕНО с 0.3 до 0.6 */
+  --rotateX: -15deg; /* чуть больше наклон для глубины */
+  --perspective: 1400px;
   position: absolute;
   width: var(--w);
   height: var(--h);
@@ -389,11 +389,13 @@ h2 {
 /* Адаптивность карусели */
 @media (max-width: 768px) {
   .inner {
-    --w: 180px;
-    --h: 240px;
+    --w: 160px;
+    --h: 220px;
+    --translateZ: calc((var(--w) + var(--h)) * 0.5);
   }
   .glitch-carousel {
-    height: 400px;
+    height: 450px;
   }
 }
+
 
