@@ -157,10 +157,11 @@ h2 {
 
 .preview-item img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
+  object-fit: contain; /* ✅ */
+  object-position: center;
 }
 
 .preview-item span {
@@ -184,7 +185,8 @@ h2 {
 .avatar {
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain; /* вместо cover */
+  object-position: center;
   border-radius: 12px;
   border: 1px solid var(--gray);
 }
@@ -258,8 +260,8 @@ h2 {
 .inner {
   --w: 200px;   /* немного уже, чтобы влезло 10 */
   --h: 280px;   /* чуть ниже */
-  --translateZ: calc((var(--w) + var(--h)) * 0.6); /* ← УВЕЛИЧЕНО с 0.3 до 0.6 */
-  --rotateX: -15deg; /* чуть больше наклон для глубины */
+  --translateZ: calc((var(--w) + var(--h)) * 0.9); /* ← УВЕЛИЧЕНО с 0.3 до 0.6 */
+  --rotateX: -10deg; /* чуть больше наклон для глубины */
   --perspective: 1400px;
   position: absolute;
   width: var(--w);
@@ -397,5 +399,6 @@ h2 {
     height: 450px;
   }
 }
+
 
 
