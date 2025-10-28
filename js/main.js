@@ -88,15 +88,21 @@ document.querySelectorAll('.nav-btn').forEach(button => {
     document.getElementById(target).classList.add('active');
 
     // Инициализация галерей при первом открытии
-    if (target === 'vhs' && !containerHasData('carousel-vhs')) {
-      initCarousel('carousel-vhs', galleries.vhs);
-      markContainerAsLoaded('carousel-vhs');
-    }
-    if (target === 'matrix' && !containerHasData('carousel-matrix')) {
-      initCarousel('carousel-matrix', galleries.matrix);
-      markContainerAsLoaded('carousel-matrix');
-    }
-  });
+    // Инициализация галерей при первом открытии
+if (target === 'vhs') {
+  const carousel = document.getElementById('carousel-vhs');
+  if (!carousel.hasAttribute('data-loaded')) {
+    initCarousel('carousel-vhs', galleries.vhs);
+    carousel.setAttribute('data-loaded', 'true');
+  }
+}
+if (target === 'matrix') {
+  const carousel = document.getElementById('carousel-matrix');
+  if (!carousel.hasAttribute('data-loaded')) {
+    initCarousel('carousel-matrix', galleries.matrix);
+    carousel.setAttribute('data-loaded', 'true');
+  }
+});
 });
 
 function containerHasData(id) {
@@ -108,3 +114,4 @@ function markContainerAsLoaded(id) {
 }
 
 // Главная вкладка активна по умолчанию
+
