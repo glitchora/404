@@ -66,20 +66,6 @@
   </div>
 </section>
 
-<!-- Модальное окно -->
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <button class="modal-close">&times;</button>
-    <img id="modal-image" src="" alt="">
-    <h3 id="modal-title"></h3>
-    <p id="modal-description"></p>
-    <div class="modal-actions">
-      <button class="btn">Close</button>
-      <!-- Можно добавить другие кнопки -->
-    </div>
-  </div>
-</div>
-
       <!-- Обо мне -->
       <section id="about" class="page">
         <div class="about-content">
@@ -96,6 +82,19 @@
           </div>
         </div>
       </section>
+    </div>
+
+    <!-- Модальное окно — ВНЕ .pages! -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <img id="modal-image" src="" alt="">
+        <h3 id="modal-title"></h3>
+        <p id="modal-description"></p>
+        <div class="modal-actions">
+          <button class="btn">Close</button>
+        </div>
+      </div>
     </div>
   </main>
 
