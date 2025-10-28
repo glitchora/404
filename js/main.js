@@ -1,20 +1,20 @@
 // === Данные для галерей ===
 const galleries = {
   vhs: [
-    { src: "assets/works/vhs-01.webp", title: "VHS Fragment #01", desc: "Analog decay with hidden signal." },
-    { src: "assets/works/vhs-02.webp", title: "VHS Fragment #02", desc: "Magnetic distortion, encrypted layer." },
-    { src: "assets/works/vhs-03.webp", title: "VHS Fragment #03", desc: "Time-stretched reality glitch." },
-    { src: "assets/works/vhs-04.webp", title: "VHS Fragment #04", desc: "Signal lost in tape warp." },
-    { src: "assets/works/vhs-05.webp", title: "VHS Fragment #05", desc: "Ghost frame from parallel broadcast." },
-    { src: "assets/works/vhs-06.webp", title: "VHS Fragment #06", desc: "Digital rupture in analog shell." }
+    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #01", desc: "Analog decay with hidden signal." },
+    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #02", desc: "Magnetic distortion, encrypted layer." },
+    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #03", desc: "Time-stretched reality glitch." },
+    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #04", desc: "Signal lost in tape warp." },
+    { src: "https://glichorahost.pages.dev/kanrojisearch.webp", title: "VHS Fragment #05", desc: "Ghost frame from parallel broadcast." },
+    { src: "https://glichorahost.pages.dev/pashalka1.webp", title: "VHS Fragment #06", desc: "Digital rupture in analog shell." }
   ],
   matrix: [
-    { src: "assets/works/matrix-01.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
-    { src: "assets/works/matrix-02.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
-    { src: "assets/works/matrix-03.webp", title: "Rupture #03", desc: "Encrypted motion in digital void." },
-    { src: "assets/works/matrix-04.webp", title: "Rupture #04", desc: "Signal from the other side." },
-    { src: "assets/works/matrix-05.webp", title: "Rupture #05", desc: "Glitch as poetic artifact." },
-    { src: "assets/works/matrix-06.webp", title: "Rupture #06", desc: "Forbidden animation in noise." }
+    { src: "https://glichorahost.pages.dev/avaanime.webp", title: "Rupture #01", desc: "Matrix code breach with hidden layer." },
+    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #02", desc: "Reality fracture in 4K noise." },
+    { src: "https://glichorahost.pages.dev/avaanime.webp"", title: "Rupture #03", desc: "Encrypted motion in digital void." },
+    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #04", desc: "Signal from the other side." },
+    { src: "https://glichorahost.pages.dev/avaanime.webp"", title: "Rupture #05", desc: "Glitch as poetic artifact." },
+    { src: "https://glichorahost.pages.dev/avamanga.webp", title: "Rupture #06", desc: "Forbidden animation in noise." }
   ]
 };
 
@@ -119,3 +119,4 @@ document.querySelectorAll('.nav-btn').forEach(button => {
 // === Инициализация главной страницы ===
 document.getElementById('home').classList.add('active');
 document.querySelector('.nav-btn[data-page="home"]').classList.add('active');
+
