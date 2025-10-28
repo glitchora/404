@@ -12,21 +12,19 @@
   <!-- Параллакс-фон по бокам -->
   <div class="parallax-left"></div>
   <div class="parallax-right"></div>
-
   <!-- Основной контент -->
   <main class="app-container">
     <!-- Навигация (верхнее меню) -->
     <nav class="main-nav">
-      <button class="nav-btn active" data-page="home">Home</button>
-      <button class="nav-btn" data-page="vhs">VHS Glitch</button>
-      <button class="nav-btn" data-page="matrix">Digital Rupture</button>
-      <button class="nav-btn" data-page="about">About</button>
+      <button class="nav-btn active" data-page="rupture-home">Home</button>
+      <button class="nav-btn" data-page="rupture-vhs">VHS Glitch</button>
+      <button class="nav-btn" data-page="rupture-matrix">Digital Rupture</button>
+      <button class="nav-btn" data-page="rupture-about">About</button>
     </nav>
-
     <!-- Страницы -->
     <div class="pages">
       <!-- Главная -->
-      <section id="home" class="page active">
+      <section id="rupture-home" class="page active">
         <h1>rupture</h1>
         <p>A digital artist exploring the fracture between reality and signal through glitch, noise, and hidden motion.</p>
         <div class="preview-grid">
@@ -40,9 +38,8 @@
           </div>
         </div>
       </section>
-
       <!-- Галерея: VHS Glitch -->
-      <section id="vhs" class="page">
+      <section id="rupture-vhs" class="page">
         <h2>VHS Glitch Archive</h2>
         <div class="glitch-carousel" id="carousel-vhs">
           <div class="wrapper">
@@ -50,9 +47,8 @@
           </div>
         </div>
       </section>
-
       <!-- Галерея: Digital Rupture -->
-      <section id="matrix" class="page">
+      <section id="rupture-matrix" class="page">
         <h2>Digital Rupture</h2>
         <div class="glitch-carousel" id="carousel-matrix">
           <div class="wrapper">
@@ -60,9 +56,8 @@
           </div>
         </div>
       </section>
-
       <!-- Обо мне -->
-      <section id="about" class="page">
+      <section id="rupture-about" class="page">
         <div class="about-content">
           <img src="https://glichorahost.pages.dev/ava.webp" alt="Artist" class="avatar">
           <div class="bio">
@@ -79,7 +74,6 @@
       </section>
     </div>
   </main>
-
   <!-- Модальное окно — ВНЕ .pages! -->
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -92,7 +86,6 @@
       </div>
     </div>
   </div>
-
   <script src="js/main.js"></script>
 </body>
 </html>
