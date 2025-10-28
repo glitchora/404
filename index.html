@@ -3,329 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>REALITY.RUPTURE()</title>
-  <meta name="description" content="A personal signal from the other side of the digital rift.">
-  <style>
-    /* === Слои стилей для читаемости и контроля === */
-    @layer reset, base, glitch, layout, interactions, secret;
-
-    @layer reset {
-      *, *::before, *::after {
-        margin: 0; padding: 0; box-sizing: border-box;
-      }
-    }
-
-    @layer base {
-      :root {
-        --glitch-color: #00ff41;
-        --glitch-pink: #ff00c8;
-        --bg: #000;
-        --text: #0a0;
-        --noise-opacity: 0.88;
-        --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: 'IBM Plex Mono', monospace;
-        overflow-x: hidden;
-        line-height: 1.6;
-        min-height: 100vh;
-        position: relative;
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: 
-          repeating-linear-gradient(
-            0deg,
-            rgba(0, 255, 65, 0.02) 0px,
-            rgba(0, 255, 65, 0.02) 1px,
-            transparent 1px,
-            transparent 2px
-          );
-        pointer-events: none;
-        z-index: -1;
-        opacity: 0.3;
-      }
-    }
-
-    @layer glitch {
-      .glitch-text {
-        position: relative;
-        font-weight: 700;
-        font-size: clamp(1.5rem, 4vw, 3rem);
-        text-shadow: 0 0 5px var(--glitch-color);
-      }
-
-      .glitch-text::before,
-      .glitch-text::after {
-        content: attr(data-glitch);
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      .glitch-text::before {
-        color: var(--glitch-pink);
-        animation: glitch-1 2s infinite;
-        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        opacity: 0.7;
-      }
-
-      .glitch-text::after {
-        color: var(--glitch-color);
-        animation: glitch-2 3s infinite;
-        clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-        opacity: 0.7;
-      }
-
-      @keyframes glitch-1 {
-        0%, 100% { transform: translate(0); }
-        20% { transform: translate(-2px, 2px); }
-        40% { transform: translate(-2px, -2px); }
-        60% { transform: translate(2px, 2px); }
-        80% { transform: translate(2px, -2px); }
-      }
-
-      @keyframes glitch-2 {
-        0%, 100% { transform: translate(0); }
-        10% { transform: translate(1px, -1px); }
-        30% { transform: translate(-1px, 1px); }
-        50% { transform: translate(1px, 1px); }
-        70% { transform: translate(-1px, -1px); }
-        90% { transform: translate(0, 0); }
-      }
-    }
-
-    @layer layout {
-      .screen {
-        position: fixed;
-        inset: 0;
-        display: grid;
-        place-content: center;
-        opacity: 1;
-        transition: opacity var(--transition);
-        z-index: 10;
-      }
-
-      .screen.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .archive-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 2.5rem;
-        padding: 3rem 2rem;
-        max-width: 1600px;
-        margin: 0 auto;
-      }
-
-      .fragment {
-        position: relative;
-        aspect-ratio: 1;
-        border: 1px solid rgba(0, 255, 65, 0.2);
-        border-radius: 4px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-      }
-
-      .fragment:hover {
-        transform: scale(1.03);
-        border-color: var(--glitch-color);
-      }
-
-      .fragment-content {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 1rem;
-        background: rgba(0, 10, 0, 0.7);
-        color: var(--text);
-        font-size: 0.85rem;
-        z-index: 2;
-      }
-
-      .fragment-media {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        z-index: 1;
-      }
-
-      .fragment:hover .fragment-media {
-        opacity: 1;
-      }
-
-      .noise-layer {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
-        opacity: var(--noise-opacity);
-        pointer-events: none;
-        mix-blend-mode: screen;
-        animation: noiseShift 0.8s infinite steps(1);
-        z-index: 3;
-      }
-
-      @keyframes noiseShift {
-        0% { background-position: 0 0; }
-        100% { background-position: 100% 100%; }
-      }
-
-      .scanlines {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-          to bottom,
-          transparent 0%,
-          rgba(0, 255, 65, 0.03) 1px,
-          transparent 2px
-        );
-        animation: scan 8s linear infinite;
-        pointer-events: none;
-        z-index: 4;
-      }
-
-      @keyframes scan {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 100vh; }
-      }
-    }
-
-    @layer interactions {
-      .fragment:hover .noise-layer {
-        opacity: 0.3;
-      }
-    }
-
-    @layer secret {
-      #secret-layer {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: #000;
-        z-index: 1000;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--glitch-color);
-      }
-
-      #secret-layer.active {
-        display: flex;
-      }
-
-      .secret-title {
-        font-size: 3rem;
-        margin-bottom: 2rem;
-        text-shadow: 0 0 10px var(--glitch-pink);
-      }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <title>rupture // [your name]</title>
+  <meta name="description" content="A digital rupture between reality and signal.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <main class="gallery">
+    <header class="gallery-header">
+      <h1>rupture</h1>
+      <p>Signal fragments recovered from the digital rift.</p>
+    </header>
 
-  <!-- Акт I: Connection Failed -->
-  <div id="boot-screen" class="screen">
-    <div style="text-align:center;">
-      <div class="glitch-text" data-glitch="CONNECTION LOST">CONNECTION LOST</div>
-      <p style="margin-top:1.5rem; opacity:0.7;">> Attempting to recover signal from reality rift...</p>
-      <p id="progress" style="margin-top:1rem; font-size:0.9rem;">[██████░░░░] 60%</p>
-    </div>
-  </div>
-
-  <!-- Акт II: The Glitch Archive -->
-  <div id="archive-screen" class="screen hidden">
-    <div class="archive-grid">
-      <!-- Пример фрагмента -->
-      <div class="fragment">
-        <img class="fragment-media" src="https://glichorahost.pages.dev/kanroji1.webp" alt="Signal fragment">
+    <div class="fragments-grid" id="fragmentsGrid">
+      <!-- Фрагменты будут добавлены через JS или вручную -->
+      <div class="fragment" data-src="assets/fragments/frag-01.webp">
         <div class="fragment-content">
-          <div>FRAGMENT #01</div>
-          <div style="font-size:0.75rem; opacity:0.8;">Source: Matrix Rift</div>
+          <span class="fragment-id">#01</span>
+          <span class="fragment-status">encrypted</span>
         </div>
-        <div class="noise-layer"></div>
-        <div class="scanlines"></div>
       </div>
-
-      <div class="fragment">
-        <img class="fragment-media" src="https://glichorahost.pages.dev/kanrojisearch.webp" alt="Signal fragment">
+      <div class="fragment" data-src="assets/fragments/frag-02.webp">
         <div class="fragment-content">
-          <div>FRAGMENT #02</div>
-          <div style="font-size:0.75rem; opacity:0.8;">Status: Corrupted</div>
+          <span class="fragment-id">#02</span>
+          <span class="fragment-status">corrupted</span>
         </div>
-        <div class="noise-layer"></div>
-        <div class="scanlines"></div>
       </div>
-
       <!-- Добавляй больше -->
     </div>
-  </div>
+  </main>
 
-  <!-- Акт III: Hidden Layer -->
-  <div id="secret-layer">
-    <div class="secret-title">REALITY.RUPTURE()</div>
-    <p>You found the core. Handle with care.</p>
-    <!-- Сюда можно добавить особые работы -->
-  </div>
-
-  <script>
-    // === Акт I → Акт II ===
-    setTimeout(() => {
-      document.getElementById('boot-screen').classList.add('hidden');
-      setTimeout(() => {
-        document.getElementById('archive-screen').classList.remove('hidden');
-      }, 400);
-    }, 3000);
-
-    // === Секретный слой: активация по удержанию 'R' ===
-    let rPressed = false;
-    let rTimer = null;
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'r' || e.key === 'R') {
-        if (!rPressed) {
-          rPressed = true;
-          rTimer = setTimeout(() => {
-            document.getElementById('secret-layer').classList.add('active');
-            rPressed = false;
-          }, 3000);
-        }
-      }
-    });
-
-    document.addEventListener('keyup', (e) => {
-      if (e.key === 'r' || e.key === 'R') {
-        clearTimeout(rTimer);
-        rPressed = false;
-      }
-    });
-
-    // === Защита от случайного скролла на мобильных ===
-    document.body.addEventListener('touchmove', (e) => {
-      if (!document.getElementById('secret-layer').classList.contains('active')) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
