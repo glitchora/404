@@ -1,4 +1,4 @@
-// === Данные галерей с твоими ссылками ===
+// === Данные галерей ===
 const galleries = {
   vhs: [
     { src: "https://glichorahost.pages.dev/pashalka6.webp", title: "VHS Glitch #01", desc: "Analog decay with hidden signal." },
@@ -26,7 +26,6 @@ function initCarousel(containerId, items) {
   const inner = container.querySelector('.inner');
   const quantity = items.length;
   inner.style.setProperty('--quantity', quantity);
-
   inner.innerHTML = '';
 
   items.forEach((item, index) => {
@@ -81,37 +80,28 @@ document.querySelectorAll('.nav-btn').forEach(button => {
   button.addEventListener('click', () => {
     const target = button.dataset.page;
 
+    // Сброс активных состояний
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
+    // Активация текущей
     button.classList.add('active');
     document.getElementById(target).classList.add('active');
 
     // Инициализация галерей при первом открытии
-    // Инициализация галерей при первом открытии
-if (target === 'vhs') {
-  const carousel = document.getElementById('carousel-vhs');
-  if (!carousel.hasAttribute('data-loaded')) {
-    initCarousel('carousel-vhs', galleries.vhs);
-    carousel.setAttribute('data-loaded', 'true');
-  }
-}
-if (target === 'matrix') {
-  const carousel = document.getElementById('carousel-matrix');
-  if (!carousel.hasAttribute('data-loaded')) {
-    initCarousel('carousel-matrix', galleries.matrix);
-    carousel.setAttribute('data-loaded', 'true');
-  }
+    if (target === 'vhs') {
+      const carousel = document.getElementById('carousel-vhs');
+      if (!carousel.hasAttribute('data-loaded')) {
+        initCarousel('carousel-vhs', galleries.vhs);
+        carousel.setAttribute('data-loaded', 'true');
+      }
+    }
+    if (target === 'matrix') {
+      const carousel = document.getElementById('carousel-matrix');
+      if (!carousel.hasAttribute('data-loaded')) {
+        initCarousel('carousel-matrix', galleries.matrix);
+        carousel.setAttribute('data-loaded', 'true');
+      }
+    }
+  });
 });
-});
-
-function containerHasData(id) {
-  return document.getElementById(id).hasAttribute('data-loaded');
-}
-
-function markContainerAsLoaded(id) {
-  document.getElementById(id).setAttribute('data-loaded', 'true');
-}
-
-// Главная вкладка активна по умолчанию
-
