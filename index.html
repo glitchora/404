@@ -4,34 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>rupture // [your name]</title>
-  <meta name="description" content="A digital rupture between reality and signal.">
+  <meta name="description" content="Digital rupture between reality and signal.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="gallery">
-    <header class="gallery-header">
-      <h1>rupture</h1>
-      <p>Signal fragments recovered from the digital rift.</p>
-    </header>
 
-    <div class="fragments-grid" id="fragmentsGrid">
-      <!-- Фрагменты будут добавлены через JS или вручную -->
-      <div class="fragment" data-src="https://glichorahost.pages.dev/kanrojisearch.webp">
-        <div class="fragment-content">
-          <span class="fragment-id">#01</span>
-          <span class="fragment-status">encrypted</span>
+  <!-- Параллакс-фон по бокам -->
+  <div class="parallax-left"></div>
+  <div class="parallax-right"></div>
+
+  <!-- Основной контент -->
+  <main class="app-container">
+    <!-- Навигация (верхнее меню) -->
+    <nav class="main-nav">
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="vhs">VHS Glitch</button>
+      <button class="nav-btn" data-page="matrix">Digital Rupture</button>
+      <button class="nav-btn" data-page="about">About</button>
+    </nav>
+
+    <!-- Страницы -->
+    <div class="pages">
+      <!-- Главная -->
+      <section id="home" class="page active">
+        <h1>rupture</h1>
+        <p>A digital artist exploring the fracture between reality and signal through glitch, noise, and hidden motion.</p>
+        <div class="preview-grid">
+          <div class="preview-item" data-type="vhs">
+            <img src="assets/works/vhs-01.webp" alt="VHS Fragment">
+            <span>VHS Glitch #01</span>
+          </div>
+          <div class="preview-item" data-type="matrix">
+            <img src="assets/works/matrix-01.webp" alt="Matrix Fragment">
+            <span>Digital Rupture #01</span>
+          </div>
         </div>
-      </div>
-      <div class="fragment" data-src="https://glichorahost.pages.dev/pashalka1.webp">
-        <div class="fragment-content">
-          <span class="fragment-id">#02</span>
-          <span class="fragment-status">corrupted</span>
+      </section>
+
+      <!-- Галерея: VHS Glitch -->
+      <section id="vhs" class="page">
+        <h2>VHS Glitch Archive</h2>
+        <div class="gallery-grid" id="gallery-vhs">
+          <!-- Заполняется через JS или вручную -->
+          <div class="gallery-item"><img src="assets/works/vhs-01.webp" alt="VHS #01"></div>
+          <div class="gallery-item"><img src="assets/works/vhs-02.webp" alt="VHS #02"></div>
         </div>
-      </div>
-      <!-- Добавляй больше -->
+      </section>
+
+      <!-- Галерея: Digital Rupture -->
+      <section id="matrix" class="page">
+        <h2>Digital Rupture</h2>
+        <div class="gallery-grid" id="gallery-matrix">
+          <div class="gallery-item"><img src="assets/works/matrix-01.webp" alt="Rupture #01"></div>
+          <div class="gallery-item"><img src="assets/works/matrix-02.webp" alt="Rupture #02"></div>
+        </div>
+      </section>
+
+      <!-- Обо мне -->
+      <section id="about" class="page">
+        <div class="about-content">
+          <img src="assets/avatar.jpg" alt="Artist" class="avatar">
+          <div class="bio">
+            <h2>About Me</h2>
+            <p>Digital motion designer specializing in glitch aesthetics, VHS decay, and the rupture between internet space and physical reality.</p>
+            <p>I embed hidden 2D R34 animations within digital noise as poetic artifacts of forbidden signal.</p>
+            <div class="social-links">
+              <a href="https://twitter.com/you" target="_blank">Twitter</a>
+              <a href="https://instagram.com/you" target="_blank">Instagram</a>
+              <a href="https://artstation.com/you" target="_blank">ArtStation</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
