@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 };
 
-  function initCarousel(containerId, items) {
+function initCarousel(containerId, items) {
     const container = document.getElementById(containerId);
     if (!container || container.hasAttribute('data-loaded')) return;
 
@@ -86,20 +86,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (actionBtn) actionBtn.addEventListener('click', closeModal);
   }
 
+  // === Переключение вкладок с хэшем ===
+  function showPage(pageId) {
+    // Сброс
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+    // Активация
+    const page = document.getElementById(pageId);
+    const btn = document.querySelector(`.nav-btn[data-page="${pageId}"]`);
+    if (page && btn) {
+      btn.classList.add('active');
+      page.classList.add('active');
+
+      // Инициализация галерей при необходимости
+      if (pageId === 'vhs') initCarousel('carousel-vhs', galleries.vhs);
+      if (pageId === 'matrix') initCarousel('carousel-matrix', galleries.matrix);
+    }
+  }
+
+  // === Обработка кликов по кнопкам ===
   document.querySelectorAll('.nav-btn').forEach(button => {
     button.addEventListener('click', () => {
-      const target = button.dataset.page;
-
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-
-      button.classList.add('active');
-      const targetPage = document.getElementById(target);
-      if (targetPage) targetPage.classList.add('active');
-
-      if (target === 'vhs') initCarousel('carousel-vhs', galleries.vhs);
-      if (target === 'matrix') initCarousel('carousel-matrix', galleries.matrix);
+      const pageId = button.dataset.page;
+      window.location.hash = pageId; // ← сохраняем в URL
+      showPage(pageId);
     });
   });
-});
 
+  // === При загрузке — читаем хэш ===
+  const hash = window.location.hash.replace('#', '') || 'home';
+  showPage(hash);
+
+  // === Если пользователь меняет хэш вручную (назад/вперёд) ===
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '') || 'home';
+    showPage(hash);
+  });
+});
