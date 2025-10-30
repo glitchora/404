@@ -389,58 +389,57 @@ h2 {
   }
 }
 
-/* === Анимированные фоновые слои (WebP с прозрачностью) === */
+/* === Анимированные фоновые слои === */
 .bg-layer {
   position: fixed;
   pointer-events: none;
   z-index: -1;
-  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
+/* Полный фон */
 .bg-full {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
-  opacity: 0.9;
 }
 
+/* Верхняя шапка */
 .bg-top {
   top: 0;
-  left: 0;
-  right: 0;
-  height: 120px; /* или 425px — как у тебя */
-  width: auto;
-  margin: 0 auto;
-  max-width: 1400px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 425px;
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  pointer-events: none;
-  z-index: 1; /* ← ВАЖНО: между фоном (-1) и контентом (10) */
 }
 
+/* Левый сайдбар */
 .bg-left {
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
   width: 369px;
-  height: auto;
+  height: 80vh; /* ← фиксированная высота */
   background-size: contain;
+  background-position: left center; /* ← привязка к левому краю */
 }
 
+/* Правый сайдбар */
 .bg-right {
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
   width: 369px;
-  height: auto;
+  height: 80vh; /* ← фиксированная высота */
   background-size: contain;
+  background-position: right center; /* ← привязка к правому краю */
 }
 
+/* Мобильные */
 @media (max-width: 900px) {
   .bg-left,
   .bg-right,
@@ -448,5 +447,3 @@ h2 {
     display: none;
   }
 }
-
-
