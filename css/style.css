@@ -389,7 +389,7 @@ h2 {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.9; /* регулируй по вкусу */
+  opacity: 1; /* регулируй по вкусу */
 }
 
 /* Полный фон — растягивается */
@@ -403,8 +403,8 @@ h2 {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 1400px;
-  height: 140px;
+  max-width: 1200px;
+  height: 425px;
   background-size: contain;
 }
 
@@ -413,7 +413,7 @@ h2 {
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  width: 120px;
+  width: 369px;
   height: auto;
   background-size: contain;
 }
@@ -423,7 +423,7 @@ h2 {
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
-  width: 120px;
+  width: 369px;
   height: auto;
   background-size: contain;
 }
@@ -436,3 +436,4 @@ h2 {
     display: none;
   }
 }
+
