@@ -33,29 +33,6 @@ body {
   position: relative;
 }
 
-/* === Параллакс-фон по бокам === */
-.parallax-left,
-.parallax-right {
-  position: fixed;
-  top: 0;
-  width: 30vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.parallax-left {
-  left: 0;
-  background: radial-gradient(circle at center, var(--violet-2) 0%, transparent 70%);
-  opacity: 0.12;
-}
-
-.parallax-right {
-  right: 0;
-  background: radial-gradient(circle at center, var(--green-2) 0%, transparent 70%);
-  opacity: 0.12;
-}
-
 /* === Контейнер приложения === */
 .app-container {
   max-width: 1400px;
@@ -400,25 +377,24 @@ h2 {
   }
 }
 
-/* === Фоновые анимированные слои === */
+/* === Анимированные фоновые слои (WebP с прозрачностью) === */
 .bg-layer {
   position: fixed;
-  pointer-events: none;
-  z-index: 1;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Полный фон — растягивается, но сохраняет прозрачность */
-.bg-full {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: -1; /* под всем контентом */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9; /* регулируй по вкусу */
+}
+
+/* Полный фон — растягивается */
+.bg-full {
   background-size: cover;
-  opacity: 1; /* очень тонкий */
-  mix-blend-mode: screen; /* делает чёрный прозрачным */
 }
 
 /* Верхняя шапка */
@@ -427,54 +403,36 @@ h2 {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 1200px;
-  height: 120px;
-  opacity: 1;
-  mix-blend-mode: overlay;
+  max-width: 1400px;
+  height: 140px;
+  background-size: contain;
 }
 
 /* Левый сайдбар */
 .bg-left {
   top: 50%;
-  left: 0;
+  left: 20px;
   transform: translateY(-50%);
-  width: 100px;
-  height: 60%;
-  max-height: 700px;
-  opacity: 1;
-  mix-blend-mode: soft-light;
+  width: 120px;
+  height: auto;
+  background-size: contain;
 }
 
 /* Правый сайдбар */
 .bg-right {
   top: 50%;
-  right: 0;
+  right: 20px;
   transform: translateY(-50%);
-  width: 100px;
-  height: 60%;
-  max-height: 700px;
-  opacity: 1;
-  mix-blend-mode: soft-light;
+  width: 120px;
+  height: auto;
+  background-size: contain;
 }
 
-/* Адаптивность: на мобильных скрываем боковые элементы */
+/* Мобильные устройства */
 @media (max-width: 900px) {
   .bg-left,
-  .bg-right {
+  .bg-right,
+  .bg-top {
     display: none;
   }
-  .bg-top {
-    height: 80px;
-  }
 }
-
-
-
-
-
-
-
-
-
-
-
