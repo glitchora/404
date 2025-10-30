@@ -417,7 +417,7 @@ h2 {
   width: 100%;
   height: 100%;
   background-size: cover;
-  opacity: 0.12; /* очень тонкий */
+  opacity: 1; /* очень тонкий */
   mix-blend-mode: screen; /* делает чёрный прозрачным */
 }
 
@@ -429,7 +429,7 @@ h2 {
   width: 100%;
   max-width: 1200px;
   height: 120px;
-  opacity: 0.3;
+  opacity: 1;
   mix-blend-mode: overlay;
 }
 
@@ -441,7 +441,7 @@ h2 {
   width: 100px;
   height: 60%;
   max-height: 700px;
-  opacity: 0.25;
+  opacity: 1;
   mix-blend-mode: soft-light;
 }
 
@@ -453,7 +453,7 @@ h2 {
   width: 100px;
   height: 60%;
   max-height: 700px;
-  opacity: 0.25;
+  opacity: 1;
   mix-blend-mode: soft-light;
 }
 
@@ -467,6 +467,7 @@ h2 {
     height: 80px;
   }
 }
+
 
 
 
