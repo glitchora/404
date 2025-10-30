@@ -407,14 +407,20 @@ h2 {
   background-size: cover;
 }
 
-/* Верхняя шапка */
-.bg-top {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1200px;
+.page-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   height: 425px;
-  background-size: contain;
+  position: relative;
+  z-index: 5; /* выше фонов, но ниже модалок */
+}
+
+.page-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 /* Левый сайдбар */
@@ -447,4 +453,5 @@ h2 {
     display: none;
   }
 }
+
 
