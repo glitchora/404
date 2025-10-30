@@ -87,6 +87,7 @@ body {
 }
 
 .page {
+  display: none;
   background: rgba(8, 8, 8, 0.4);
   padding: 2rem;
   border-radius: 16px;
@@ -447,4 +448,5 @@ h2 {
     display: none;
   }
 }
+
 
