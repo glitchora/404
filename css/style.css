@@ -420,10 +420,10 @@ h2 {
 /* Левый сайдбар */
 .bg-left {
   top: 50%;
-  left: 20px;
+  left: 0px;
   transform: translateY(-50%);
-  width: 369px;
-  height: 80vh; /* ← фиксированная высота */
+  width: 363px;
+  height: 98vh; /* ← фиксированная высота */
   background-size: contain;
   background-position: left center; /* ← привязка к левому краю */
 }
@@ -431,10 +431,10 @@ h2 {
 /* Правый сайдбар */
 .bg-right {
   top: 50%;
-  right: 20px;
+  right: 0px;
   transform: translateY(-50%);
-  width: 369px;
-  height: 80vh; /* ← фиксированная высота */
+  width: 363px;
+  height: 98vh; /* ← фиксированная высота */
   background-size: contain;
   background-position: right center; /* ← привязка к правому краю */
 }
@@ -447,3 +447,4 @@ h2 {
     display: none;
   }
 }
+
