@@ -417,44 +417,38 @@ h2 {
 }
 
 .page-header {
-  width: 100%;
-  min-width: 1200px; /* ← КЛЮЧЕВОЕ: не даём сжиматься меньше оригинала */
-  max-width: none;   /* отключаем max-width, чтобы min-width работал */
+  width: 1200px;
   height: 425px;
   position: relative;
   z-index: 5;
-  image-rendering: pixelated;
   margin: 0 auto;
 }
 
 .page-header img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center; /* явно указываем центр */
+  width: 1200px;
+  height: 425px;
   display: block;
+  image-rendering: pixelated;
 }
 
-/* Левый сайдбар */
+/* === Левый фон — фиксированный размер, левый край всегда виден === */
 .bg-left {
   top: 0;
   left: 0;
   width: 363px;
   height: 100%;
-  background-size: auto 100%; /* масштаб по высоте */
-  background-position: left top; /* привязка к ЛЕВОМУ краю */
-  background-repeat: no-repeat;
+  background-size: 363px auto; /* ← ширина фиксирована, высота — как есть */
+  background-position: left top; /* ← привязка к левому краю */
 }
 
-/* === Правый фон — всегда показывает правый край === */
+/* === Правый фон — фиксированный размер, правый край всегда виден === */
 .bg-right {
   top: 0;
   right: 0;
   width: 363px;
   height: 100%;
-  background-size: auto 100%; /* масштаб по высоте */
-  background-position: right top; /* привязка к ПРАВОМУ краю */
-  background-repeat: no-repeat;
+  background-size: 363px auto; /* ← ширина фиксирована */
+  background-position: right top; /* ← привязка к правому краю */
 }
 
 /* Мобильные */
@@ -465,6 +459,7 @@ h2 {
     display: none;
   }
 }
+
 
 
 
