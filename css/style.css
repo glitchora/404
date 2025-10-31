@@ -431,24 +431,26 @@ h2 {
   image-rendering: pixelated;
 }
 
-/* === Левый фон — фиксированный размер, левый край всегда виден === */
+/* Левый сайдбар */
 .bg-left {
   top: 0;
   left: 0;
   width: 363px;
   height: 100%;
-  background-size: 363px auto; /* ← ширина фиксирована, высота — как есть */
-  background-position: left top; /* ← привязка к левому краю */
+  background-size: auto 100%;
+  background-position: left top;
+  background-repeat: no-repeat;
 }
 
-/* === Правый фон — фиксированный размер, правый край всегда виден === */
+/* Правый сайдбар */
 .bg-right {
   top: 0;
   right: 0;
   width: 363px;
   height: 100%;
-  background-size: 363px auto; /* ← ширина фиксирована */
-  background-position: right top; /* ← привязка к правому краю */
+  background-size: auto 100%;
+  background-position: right top;
+  background-repeat: no-repeat;
 }
 
 /* Мобильные */
@@ -459,6 +461,7 @@ h2 {
     display: none;
   }
 }
+
 
 
 
