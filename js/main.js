@@ -125,4 +125,74 @@ function initCarousel(containerId, items) {
   });
 });
 
+// === Точный hover для 3D-каруселей ===
+function setupPreciseHover(carouselSelector) {
+  const carousel = document.querySelector(carouselSelector);
+  if (!carousel) return;
+
+  const inner = carousel.querySelector('.inner');
+  const cards = Array.from(carousel.querySelectorAll('.card'));
+
+  // Кэшируем bounding rects при старте и при ресайзе
+  let cardRects = [];
+
+  function updateCardRects() {
+    cardRects = cards.map(card => {
+      const rect = card.getBoundingClientRect();
+      return {
+        card,
+        centerX: rect.left + rect.width / 2,
+        centerY: rect.top + rect.height / 2,
+        distance: Infinity
+      };
+    });
+  }
+
+  // Обновляем позиции при загрузке и ресайзе
+  updateCardRects();
+  window.addEventListener('resize', updateCardRects);
+
+  // Отслеживаем движение мыши ТОЛЬКО внутри карусели
+  carousel.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    // Находим ближайшую карточку по расстоянию до центра
+    let closest = null;
+    let minDist = Infinity;
+
+    for (const item of cardRects) {
+      const dx = item.centerX - mouseX;
+      const dy = item.centerY - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < minDist) {
+        minDist = dist;
+        closest = item.card;
+      }
+    }
+
+    // Снимаем hovered со всех
+    cards.forEach(c => c.classList.remove('hovered'));
+
+    // Добавляем только если курсор достаточно близко (например, < 150px)
+    if (closest && minDist < 150) {
+      closest.classList.add('hovered');
+    }
+  });
+
+  // Убираем hovered при выходе из карусели
+  carousel.addEventListener('mouseleave', () => {
+    cards.forEach(c => c.classList.remove('hovered'));
+  });
+}
+
+// Применяем к обеим каруселям
+document.addEventListener('DOMContentLoaded', () => {
+  // Ждём, пока карточки не будут созданы (например, после initCarousels)
+  setTimeout(() => {
+    setupPreciseHover('#carousel-vhs');
+    setupPreciseHover('#carousel-matrix');
+  }, 500); // можно увеличить, если карточки грузятся дольше
+});
 
