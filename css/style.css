@@ -290,7 +290,7 @@ h2 {
   cursor: pointer;
 }
 
-.card.hovered,
+.card.hover,
 .card.active {
   transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ)) scale(1.15) !important;
   border-color: rgba(255, 255, 255, 0.8);
@@ -461,6 +461,7 @@ h2 {
     display: none;
   }
 }
+
 
 
 
