@@ -235,6 +235,14 @@ h2 {
   margin-top: 2rem;
   perspective: 1200px;
 }
+/* === Исправление ложного hover в 3D-карусели === */
+.glitch-carousel .inner {
+  pointer-events: none;
+}
+
+.glitch-carousel .card {
+  pointer-events: auto;
+}
 
 .wrapper {
   width: 100%;
@@ -453,5 +461,6 @@ h2 {
     display: none;
   }
 }
+
 
 
