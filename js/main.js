@@ -26,49 +26,103 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 };
 
+function setupPreciseHover(carouselSelector) {
+  const carousel = document.querySelector(carouselSelector);
+  if (!carousel) return;
+
+  const inner = carousel.querySelector('.inner');
+  const cards = Array.from(carousel.querySelectorAll('.card'));
+
+  let cardRects = [];
+
+  function updateCardRects() {
+    cardRects = cards.map(card => {
+      const rect = card.getBoundingClientRect();
+      return {
+        card,
+        centerX: rect.left + rect.width / 2,
+        centerY: rect.top + rect.height / 2
+      };
+    });
+  }
+
+  updateCardRects();
+  window.addEventListener('resize', updateCardRects);
+
+  carousel.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    let closest = null;
+    let minDist = Infinity;
+
+    for (const item of cardRects) {
+      const dx = item.centerX - mouseX;
+      const dy = item.centerY - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < minDist) {
+        minDist = dist;
+        closest = item.card;
+      }
+    }
+
+    cards.forEach(c => c.classList.remove('hovered'));
+    if (closest && minDist < 150) {
+      closest.classList.add('hovered');
+    }
+  });
+
+  carousel.addEventListener('mouseleave', () => {
+    cards.forEach(c => c.classList.remove('hovered'));
+  });
+}
+  
 function initCarousel(containerId, items) {
-    const container = document.getElementById(containerId);
-    if (!container || container.hasAttribute('data-loaded')) return;
+  const container = document.getElementById(containerId);
+  if (!container || container.hasAttribute('data-loaded')) return;
 
-    const inner = container.querySelector('.inner');
-    const quantity = items.length;
-    inner.style.setProperty('--quantity', quantity);
-    inner.innerHTML = '';
+  const inner = container.querySelector('.inner');
+  const quantity = items.length;
+  inner.style.setProperty('--quantity', quantity);
+  inner.innerHTML = '';
 
-    items.forEach((item, index) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.setProperty('--index', index);
+  items.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.setProperty('--index', index);
 
-      const imgDiv = document.createElement('div');
-      imgDiv.className = 'img';
-      imgDiv.style.backgroundImage = `url(${item.src})`;
+    const imgDiv = document.createElement('div');
+    imgDiv.className = 'img';
+    imgDiv.style.backgroundImage = `url(${item.src})`;
 
-      card.appendChild(imgDiv);
-      inner.appendChild(card);
+    card.appendChild(imgDiv);
+    inner.appendChild(card);
 
-      card.addEventListener('click', () => {
-        document.getElementById('modal-image').src = item.src;
-        document.getElementById('modal-title').textContent = item.title;
-        document.getElementById('modal-description').textContent = item.desc;
-        document.getElementById('modal').classList.add('show');
-        document.body.style.overflow = 'hidden';
-      });
-
-      card.addEventListener('mouseenter', () => {
-        inner.classList.add('paused');
-        container.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-      });
-
-      card.addEventListener('mouseleave', () => {
-        inner.classList.remove('paused');
-        card.classList.remove('active');
-      });
+    card.addEventListener('click', () => {
+      document.getElementById('modal-image').src = item.src;
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-description').textContent = item.desc;
+      document.getElementById('modal').classList.add('show');
+      document.body.style.overflow = 'hidden';
     });
 
-    container.setAttribute('data-loaded', 'true');
-  }
+    card.addEventListener('mouseenter', () => {
+      inner.classList.add('paused');
+      container.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      inner.classList.remove('paused');
+      card.classList.remove('active');
+    });
+  });
+
+  container.setAttribute('data-loaded', 'true');
+
+  setupPreciseHover(`#${containerId}`);
+}
 
   function closeModal() {
     document.getElementById('modal').classList.remove('show');
@@ -123,76 +177,5 @@ function initCarousel(containerId, items) {
     const hash = window.location.hash.replace('#', '') || 'home';
     showPage(hash);
   });
-});
-
-// === Точный hover для 3D-каруселей ===
-function setupPreciseHover(carouselSelector) {
-  const carousel = document.querySelector(carouselSelector);
-  if (!carousel) return;
-
-  const inner = carousel.querySelector('.inner');
-  const cards = Array.from(carousel.querySelectorAll('.card'));
-
-  // Кэшируем bounding rects при старте и при ресайзе
-  let cardRects = [];
-
-  function updateCardRects() {
-    cardRects = cards.map(card => {
-      const rect = card.getBoundingClientRect();
-      return {
-        card,
-        centerX: rect.left + rect.width / 2,
-        centerY: rect.top + rect.height / 2,
-        distance: Infinity
-      };
-    });
-  }
-
-  // Обновляем позиции при загрузке и ресайзе
-  updateCardRects();
-  window.addEventListener('resize', updateCardRects);
-
-  // Отслеживаем движение мыши ТОЛЬКО внутри карусели
-  carousel.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    // Находим ближайшую карточку по расстоянию до центра
-    let closest = null;
-    let minDist = Infinity;
-
-    for (const item of cardRects) {
-      const dx = item.centerX - mouseX;
-      const dy = item.centerY - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < minDist) {
-        minDist = dist;
-        closest = item.card;
-      }
-    }
-
-    // Снимаем hovered со всех
-    cards.forEach(c => c.classList.remove('hovered'));
-
-    // Добавляем только если курсор достаточно близко (например, < 150px)
-    if (closest && minDist < 150) {
-      closest.classList.add('hovered');
-    }
-  });
-
-  // Убираем hovered при выходе из карусели
-  carousel.addEventListener('mouseleave', () => {
-    cards.forEach(c => c.classList.remove('hovered'));
-  });
-}
-
-// Применяем к обеим каруселям
-document.addEventListener('DOMContentLoaded', () => {
-  // Ждём, пока карточки не будут созданы (например, после initCarousels)
-  setTimeout(() => {
-    setupPreciseHover('#carousel-vhs');
-    setupPreciseHover('#carousel-matrix');
-  }, 500); // можно увеличить, если карточки грузятся дольше
 });
 
