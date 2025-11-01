@@ -26,34 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
-  // --- ИНИЦИАЛИЗАЦИЯ Intersection Observer для ленивой загрузки ---
+  // --- ИНИЦИАЛИЗАЦИЯ Intersection Observer для ленивой загрузки (из предыдущего ответа) ---
   let mediaObserver;
 
   function initMediaObserver() {
-    if (mediaObserver) return; // Убедимся, что наблюдатель инициализирован только один раз
+    if (mediaObserver) return;
 
     const observerOptions = {
-      root: null, // Используем viewport
-      rootMargin: '100px', // Начать загрузку, когда элемент находится в 100px от области просмотра (вне её)
-      threshold: 0.01, // Даже 1% видимости достаточно для срабатывания
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.01,
     };
 
     const observerCallback = (entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const target = entry.target;
-
-          // Проверяем, есть ли у элемента атрибут data-bg
           const bgUrl = target.getAttribute('data-bg');
           if (bgUrl) {
-            // Устанавливаем реальный фон
             target.style.backgroundImage = `url(${bgUrl})`;
-            // Убираем атрибут, чтобы не срабатывало повторно
             target.removeAttribute('data-bg');
-            // Убираем класс-маркер, если он был
             target.classList.remove('lazy-bg');
-
-            // Отключаем наблюдение за этим элементом
             observer.unobserve(target);
           }
         }
@@ -74,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inner = container.querySelector('.inner');
     const quantity = items.length;
     inner.style.setProperty('--quantity', quantity);
-    inner.innerHTML = ''; // Очищаем перед заполнением
+    inner.innerHTML = '';
 
     items.forEach((item, index) => {
       const card = document.createElement('div');
@@ -83,16 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Создаём div для изображения
       const imgDiv = document.createElement('div');
-      imgDiv.className = 'img lazy-bg'; // Добавляем класс-маркер и класс для ленивой загрузки
-      // Сохраняем реальный URL в data-bg ВМЕСТО установки background-image напрямую
-      imgDiv.setAttribute('data-bg', item.src);
+      imgDiv.className = 'img lazy-bg'; // Добавляем класс-маркер
+      imgDiv.setAttribute('data-bg', item.src); // Сохраняем URL в data-bg
 
       card.appendChild(imgDiv);
       inner.appendChild(card);
 
-      // --- Обработчики событий для карточки ---
       card.addEventListener('click', () => {
-        // Для модального окна используем оригинальный src из объекта item
         document.getElementById('modal-image').src = item.src;
         document.getElementById('modal-title').textContent = item.title;
         document.getElementById('modal-description').textContent = item.desc;
@@ -111,10 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.remove('active');
       });
 
-      // --- НАБЛЮДЕНИЕ ЗА КАРТОЧКОЙ ИЗОБРАЖЕНИЯ ---
-      // Наблюдаем за самим div.img, у которого есть data-bg
+      // НАБЛЮДЕНИЕ ЗА КАРТОЧКОЙ ИЗОБРАЖЕНИЯ
       if (mediaObserver) {
-        mediaObserver.observe(imgDiv); // <-- Начинаем наблюдать за элементом с data-bg
+        mediaObserver.observe(imgDiv);
       }
     });
 
@@ -139,37 +128,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === Переключение вкладок с хэшем ===
   function showPage(pageId) {
-    // Сброс
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    // Активация
     const page = document.getElementById(pageId);
     const btn = document.querySelector(`.nav-btn[data-page="${pageId}"]`);
     if (page && btn) {
       btn.classList.add('active');
       page.classList.add('active');
-      // Инициализация галерей при необходимости
       if (pageId === 'vhs') initCarousel('carousel-vhs', galleries.vhs);
       if (pageId === 'matrix') initCarousel('carousel-matrix', galleries.matrix);
     }
   }
 
-  // === Обработка кликов по кнопкам ===
   document.querySelectorAll('.nav-btn').forEach(button => {
     button.addEventListener('click', () => {
       const pageId = button.dataset.page;
-      window.location.hash = pageId; // ← сохраняем в URL
+      window.location.hash = pageId;
       showPage(pageId);
     });
   });
 
-  // === При загрузке — читаем хэш ===
   const hash = window.location.hash.replace('#', '') || 'home';
   showPage(hash);
 
-  // === Если пользователь меняет хэш вручную (назад/вперёд) ===
   window.addEventListener('hashchange', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     showPage(hash);
   });
+
+  // --- НОВЫЙ КОД: Инициализация HLS для фонового видео ---
+  const videoElement = document.getElementById('bg-full-video');
+
+  if (videoElement) {
+    const videoSrc = 'assets/background/playlist.m3u8'; // Путь к ТВОЕМУ .m3u8 файлу
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+          // debug: true // Включить для отладки в консоли
+      });
+      hls.loadSource(videoSrc);
+      hls.attachMedia(videoElement);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          console.log('HLS manifest loaded, starting playback...');
+          videoElement.style.display = 'block'; // Показываем видео после загрузки
+      });
+
+      hls.on(Hls.Events.ERROR, function(event, data) {
+          console.error('HLS Error:', data);
+      });
+
+    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+      // Встроенный HLS для Safari
+      console.log('Native HLS support detected (Safari).');
+      videoElement.src = videoSrc;
+      videoElement.addEventListener('loadedmetadata', function() {
+          console.log('Native HLS metadata loaded, starting playback...');
+          videoElement.style.display = 'block';
+      });
+      videoElement.addEventListener('error', function(err) {
+          console.error('Native HLS error:', err);
+      });
+    } else {
+      console.warn('HLS is not supported in this browser.');
+    }
+  } else {
+    console.warn('Video element #bg-full-video not found.');
+  }
 });
