@@ -419,43 +419,40 @@ h2 {
   pointer-events: none;
 }
 
-/* === Фиксированный размер шапки === */
 .page-header {
-  width: 1200px; 
-  height: 425px; 
-  position: relative;
-  z-index: 5;
-  margin: 0 auto; 
+  width: 1400px;
+  height: 430px;
+  position: relative; 
+  z-index: 5; 
+  margin: 0 auto;
+  overflow: hidden; 
 }
 
-/* Делаем размер картинки в шапке соответствующим фиксированному размеру блока */
-.page-header img {
-  width: 1200px; 
-  height: 425px; 
-  display: block;
-  object-fit: contain; 
+/* Стили для видео в шапке */
+.page-header-video {
+  width: 1400px; 
+  height: 430px; 
+  display: block; 
+  object-fit: contain;
 }
 
 @media (max-width: 900px) {
-  .bg-left,
-  .bg-right,
-  .bg-top { /* bg-top в CSS не определён, но если есть, тоже скроем */
-    display: none;
-  }
-  /* Для мобильных может понадобиться адаптация .page-header */
+  @media (max-width: 900px) {
   .page-header {
-    width: 100%; /* Или другая адаптивная ширина */
-    height: 200px; /* Или другая адаптивная высота */
-  }
-  .page-header img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Для лучшего заполнения на мобильных */
+    max-width: 1200px; /* Ограничиваем ширину на очень широких экранах */
+    height: 200px; /* Пример: уменьшаем высоту на мобильных */
+  }
+  .page-header-video {
+    width: 100%;
+    height: 100%; /* Занимает всю высоту контейнера .page-header */
+    object-fit: cover; /* Возможно, cover будет лучше на мобильных для заполнения */
   }
   h1 {
       font-size: 2.2rem; /* Адаптивный размер для мобильных, если нужно */
   }
 }
+
 
 
 
