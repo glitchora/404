@@ -13,8 +13,8 @@
   <img src="https://glichorahost.pages.dev/FonShapka2.webp" alt="Header">
 </div>
   
-<video autoplay muted loop playsinline poster="metadata" class="bg-full">
-        <source src="assets/background.webm" type="video/webm">
+<video id="bg-full-video" class="bg-full" autoplay muted loop playsinline style="display: none;">
+      <!-- Источник будет установлен через hls.js -->
     </video>
 
   <!-- Основной контент -->
@@ -96,7 +96,7 @@
       </div>
     </div>
   </div>
-
+  <script src="js/hls.min.js"></script>
   <script src="js/lazysizes.min.js"></script>
   <script src="js/main.js"></script>
 </body>
