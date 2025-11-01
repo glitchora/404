@@ -155,3 +155,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     showPage(hash);
   });
+});
